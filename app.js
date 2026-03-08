@@ -92,6 +92,22 @@ const filterIssues = (status) => {
     }
 }
 
+const handleSearch = async () => {
+    const searchInput = document.getElementById('search-input');
+    const searchText = searchInput ? searchInput.value.trim() : '';
+    if (!searchText) {
+        displayIssues(allIssues);
+        return;
+    }
+    try {
+        const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
+        const data = await res.json();
+        displayIssues(data.data);
+    } catch (error) {
+        console.error("Search error:", error);
+    }
+}
+
 if (window.location.pathname.includes('dashboard.html')) {
     loadIssues();
 }
