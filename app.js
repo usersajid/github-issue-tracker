@@ -11,3 +11,5 @@ document.getElementById('login-form')?.addEventListener('submit', function(e) {
         alert('Please enter valid credentials');
     }
 });
+
+// Dashboard page disgn and data loading
