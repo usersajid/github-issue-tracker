@@ -70,6 +70,27 @@ const displayIssues = (issues) => {
         issueContainer.appendChild(card);
     });
 }
+const filterIssues = (status) => {
+    const buttons = ['all', 'open', 'closed'];
+    buttons.forEach(btnId => {
+        const btnElement = document.getElementById(`btn-${btnId}`);
+        
+        if (btnElement) {
+            if (btnId === status) {
+                btnElement.className = "px-5 py-1.5 rounded-md bg-[#5C33FF] text-white text-sm font-medium shadow-sm transition";
+            } else {
+                btnElement.className = "px-5 py-1.5 rounded-md bg-white border border-gray-200 text-gray-600 text-sm font-medium hover:bg-gray-50 transition";
+            }
+        }
+    });
+
+    if (status === 'all') {
+        displayIssues(allIssues);
+    } else {
+        const filtered = allIssues.filter(issue => issue.status === status);
+        displayIssues(filtered);
+    }
+}
 
 if (window.location.pathname.includes('dashboard.html')) {
     loadIssues();
