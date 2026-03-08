@@ -13,3 +13,20 @@ document.getElementById('login-form')?.addEventListener('submit', function(e) {
 });
 
 // Dashboard page disgn and data loading
+let allIssues = []; 
+
+const loadIssues = async () => {
+    try {
+        const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
+        const data = await res.json();
+        allIssues = data.data; 
+        displayIssues(allIssues); 
+    } catch (err) {
+        console.error("Data load failed:", err);
+    }
+}
+
+if (window.location.pathname.includes('dashboard.html')) {
+    loadIssues();
+}
+
