@@ -20,6 +20,7 @@ const loadIssues = async () => {
         const data = await res.json();
         allIssues = data.data; 
         displayIssues(allIssues); 
+        filterIssues('all');
     } catch (err) {
         console.error("Data load failed:", err);
     }
@@ -103,8 +104,7 @@ const handleSearch = async () => {
         const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`);
         const data = await res.json();
         displayIssues(data.data);
-        displayIssues(allIssues); 
-        filterIssues('all');
+        
     } catch (error) {
         console.error("Search error:", error);
     }
