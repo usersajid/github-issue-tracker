@@ -66,6 +66,23 @@
         </div>
     </main>
 
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-[100] p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 md:p-8 relative shadow-2xl animate-fade-in">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900 transition text-2xl font-bold">
+            &times;
+        </button>
+        
+        <div id="modal-content">
+            </div>
+        
+        <div class="mt-8 flex justify-end">
+            <button onclick="closeModal()" class="bg-[#5C33FF] text-white px-8 py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition">
+                Close
+            </div>
+        </div>
+    </div>
+</div>
+
     <script src="app.js"></script>
 </body>
 

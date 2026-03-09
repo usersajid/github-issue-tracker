@@ -110,6 +110,63 @@ const handleSearch = async () => {
     }
 }
 
+const openModal = async (id) => {
+    try {
+        const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+        const data = await res.json();
+        const issue = data.data;
+
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+
+        if (modal && modalContent) {
+            modalContent.innerHTML = `
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">${issue.title}</h2>
+                
+                <div class="flex flex-wrap items-center gap-3 mb-6">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase ${issue.status === 'open' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}">
+                        ${issue.status}
+                    </span>
+                    <span class="text-sm text-gray-500 italic">
+                        Opened by <b>${issue.author}</b> on ${new Date(issue.createdAt).toLocaleDateString()}
+                    </span>
+                </div>
+
+                <div class="flex gap-2 mb-6">
+                    ${issue.labels.map(label => `<span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-1 rounded font-bold uppercase">${label}</span>`).join('')}
+                </div>
+
+                <p class="text-gray-600 mb-8 leading-relaxed text-sm md:text-base">${issue.description}</p>
+
+                <div class="bg-gray-50 p-6 rounded-xl grid grid-cols-2 gap-6 border border-gray-100">
+                    <div>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-1 tracking-widest">Assignee</p>
+                        <p class="font-bold text-gray-800">${issue.assignee || 'Unassigned'}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-1 tracking-widest">Priority</p>
+                        <p class="font-bold uppercase ${issue.priority === 'high' ? 'text-red-600' : 'text-orange-600'}">${issue.priority}</p>
+                    </div>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+    } catch (err) {
+        console.error("Modal data load failed:", err);
+    }
+}
+
+const closeModal = () => {
+    const modal = document.getElementById('modal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+}
+
 if (window.location.pathname.includes('dashboard.html')) {
     loadIssues();
 }
