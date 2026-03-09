@@ -25,7 +25,7 @@ const loadIssues = async () => {
         console.error("Data load failed:", err);
     }
 }
-
+// All issues display function
 const displayIssues = (issues) => {
     const issueContainer = document.getElementById('issue-container');
     const issueCount = document.getElementById('issue-count');
@@ -71,6 +71,7 @@ const displayIssues = (issues) => {
         issueContainer.appendChild(card);
     });
 }
+// Issue filtering function
 const filterIssues = (status) => {
     const buttons = ['all', 'open', 'closed'];
     buttons.forEach(btnId => {
@@ -92,7 +93,7 @@ const filterIssues = (status) => {
         displayIssues(filtered);
     }
 }
-
+// Search function
 const handleSearch = async () => {
     const searchInput = document.getElementById('search-input');
     const searchText = searchInput ? searchInput.value.trim() : '';
@@ -109,7 +110,7 @@ const handleSearch = async () => {
         console.error("Search error:", error);
     }
 }
-
+// 
 const openModal = async (id) => {
     try {
         const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
